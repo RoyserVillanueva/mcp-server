@@ -9,7 +9,6 @@
 
 **Un servidor del Model Context Protocol (MCP) construido con TypeScript que se conecta con cualquier cliente MCP como Claude, VS Code, Cursor y más**
 
-[![Claude Desktop](https://img.shields.io/badge/Claude-Desktop-7C3AED?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai)
 [![VS Code](https://img.shields.io/badge/VS-Code-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com)
 [![Cursor](https://img.shields.io/badge/Cursor-Editor-000000?style=flat-square&logo=cursor&logoColor=white)](https://cursor.sh)
 
