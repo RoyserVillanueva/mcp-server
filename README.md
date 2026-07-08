@@ -1,134 +1,138 @@
-# MCP Server Boilerplate
+# 🚀 Mi MCP Server
 
-<a href="https://glama.ai/mcp/servers/tdjg6t8sk8"><img width="380" height="200" src="https://glama.ai/mcp/servers/tdjg6t8sk8/badge" alt="MCP Server Boilerplate on Glama" /></a>
+<div align="center">
 
-Production-ready starter templates for building [Model Context Protocol](https://modelcontextprotocol.io/) servers in **TypeScript** and **Python**.
+![MCP Server](https://img.shields.io/badge/MCP-Server-blue?style=for-the-badge)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
+![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-Skip the boilerplate. Start building tools your AI agents can actually use.
+**Un servidor del Model Context Protocol (MCP) construido con TypeScript que se conecta con cualquier cliente MCP como Claude, VS Code, Cursor y más**
 
-## Server Capabilities
+[![Claude Desktop](https://img.shields.io/badge/Claude-Desktop-7C3AED?style=flat-square&logo=anthropic&logoColor=white)](https://claude.ai)
+[![VS Code](https://img.shields.io/badge/VS-Code-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white)](https://code.visualstudio.com)
+[![Cursor](https://img.shields.io/badge/Cursor-Editor-000000?style=flat-square&logo=cursor&logoColor=white)](https://cursor.sh)
 
-This boilerplate ships with working examples of all three MCP primitives:
+</div>
 
-### Tools
+---
 
-| Tool | Description | Parameters |
-|------|-------------|------------|
-| `echo` | Echo a message back to the caller | `message` (string, required) |
-| `timestamp` | Get the current UTC timestamp | _(none)_ |
+## 📋 Tabla de Contenidos
 
-### Resources
+- [✨ Características](#-características)
+- [🛠️ Herramientas Disponibles](#️-herramientas-disponibles)
+- [📦 Requisitos Previos](#-requisitos-previos)
+- [🚀 Instalación](#-instalación)
+- [🔧 Configuración para Clientes](#-configuración-para-clientes)
+  - [VS Code](#visual-studio-code)
+  - [Cursor](#cursor)
+  - [Claude Desktop](#claude-desktop)
+- [🧪 Uso y Pruebas](#-uso-y-pruebas)
+- [📁 Estructura del Proyecto](#-estructura-del-proyecto)
+- [🤝 Contribución](#-contribución)
+- [📄 Licencia](#-licencia)
 
-| URI | Description | MIME Type |
-|-----|-------------|-----------|
-| `server://info` | Server metadata (name, version, available tools) | `application/json` |
+---
 
-### Prompts
+## ✨ Características
 
-No prompt templates are registered in the starter. The full kit includes prompt template patterns.
+- ✅ **Herramientas (Tools)**: Funciones que la IA puede ejecutar
+- ✅ **Recursos (Resources)**: Datos estructurados que la IA puede leer
+- ✅ **Prompts**: Plantillas de instrucciones reutilizables
+- ✅ **Compatible con múltiples clientes**: VS Code, Claude Desktop, Cursor y más
+- ✅ **TypeScript**: Código tipado y moderno
+- ✅ **Fácil de extender**: Añade tus propias herramientas en minutos
 
-## What's Included (Free)
+---
 
-### TypeScript Quickstart
+## 🛠️ Herramientas Disponibles
 
-```typescript
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
+| Herramienta | Descripción | Ejemplo |
+|-------------|-------------|---------|
+| `echo` | Devuelve el mensaje que recibe | `echo("Hola mundo")` → "Echo: Hola mundo" |
+| `sum` | Suma dos números | `sum(5, 3)` → "5 + 3 = 8" |
+| `get_current_time` | Muestra la hora actual | `get_current_time()` → "Hora: 14:30:45" |
+| `greeting` (Resource) | Saludo personalizado | `greeting://Juan` → "Hello, Juan!" |
+| `summarize` (Prompt) | Plantilla para resumir texto | Pide resumir cualquier texto |
 
-const server = new McpServer({
-  name: "my-mcp-server",
-  version: "1.0.0",
-});
+---
 
-// Register a tool
-server.tool("hello", { name: { type: "string" } }, async ({ name }) => ({
-  content: [{ type: "text", text: `Hello, ${name}!` }],
-}));
+## 📦 Requisitos Previos
 
-// Connect via stdio
-const transport = new StdioServerTransport();
-await server.connect(transport);
+- [Node.js](https://nodejs.org/) (v18.0.0 o superior)
+- [pnpm](https://pnpm.io/) (v8.0.0 o superior) o npm
+- [Git](https://git-scm.com/) (opcional, para clonar)
+
+---
+
+## 🚀 Instalación
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/tu-usuario/mcp-server.git
+cd mcp-server
 ```
 
-### Python Quickstart
+### 2. Instalar Dependencias
 
-```python
-from mcp.server import Server
-from mcp.server.stdio import stdio_server
-
-app = Server("my-mcp-server")
-
-@app.tool()
-async def hello(name: str) -> str:
-    """Say hello to someone."""
-    return f"Hello, {name}!"
-
-async def main():
-    async with stdio_server() as (read, write):
-        await app.run(read, write)
+```bash
+pnpm install
 ```
 
-### Claude Desktop Configuration
+### 3. Compilar el proyecto
 
+```bash
+pnpm run build
+```
+
+### 4. Ejecutar el servidor
+
+```bash
+pnpm start
+```
+
+### Configuración para Clientes
+
+1. Crea el archivo .vscode/mcp.json con el siguiente contenido:
 ```json
 {
-  "mcpServers": {
-    "my-server": {
-      "command": "npx",
-      "args": ["tsx", "src/index.ts"]
+  "servers": {
+    "mi-servidor": {
+      "command": "node",
+      "args": ["dist/index.js"]
     }
   }
 }
 ```
+2. Abre VS Code en la carpeta del proyecto
+3. Asegúrate de tener la extensión GitHub Copilot instalada
+4. En Copilot Chat, ya puedes usar las herramientas del servidor
 
-## Project Structure
+### Estructura del Proyecto
 
 ```
-my-mcp-server/
+mcp-server/
+├── .vscode/
+│   └── mcp.json          # Configuración para VS Code
+├── dist/                  # Código compilado
 ├── src/
-│   └── index.ts          # Server entry point
-├── tools/
-│   └── example.ts        # Tool definitions
-├── resources/
-│   └── example.ts        # Resource providers
-├── package.json
-├── tsconfig.json
-└── claude_desktop_config.json
+│   └── index.ts          # Código fuente del servidor
+├── scripts/
+│   └── install-desktop.js # Script para Claude Desktop
+├── package.json          # Dependencias y scripts
+├── tsconfig.json         # Configuración TypeScript
+└── README.md             # Este archivo
 ```
 
-## Getting Started
+### Licencia
 
-1. Clone this repo
-2. `npm install`
-3. `npm run build`
-4. Add to your Claude Desktop config
-5. Start building tools
+Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
 
-## Going Further
+### Agradecimientos
 
-This free boilerplate gets you started. The **[MCP Server Boilerplate Kit](https://shellsage-ai.github.io/)** ($49) includes:
+- Model Context Protocol - El protocolo que hace esto posible
 
-- ✅ Full TypeScript + Python dual-language templates
-- ✅ Docker containerization with multi-stage builds
-- ✅ CI/CD pipeline (GitHub Actions) for automated testing & deployment
-- ✅ SSE (Server-Sent Events) transport for web deployments
-- ✅ 15+ pre-built tool examples (file ops, API calls, database queries)
-- ✅ Resource and prompt template patterns
-- ✅ Error handling, logging, and retry patterns
-- ✅ Testing framework with mock MCP client
-- ✅ Production deployment guide (Docker, systemd, cloud)
-- ✅ Claude Desktop + Cursor + Windsurf integration configs
+- Anthropic - Por Claude y el soporte a MCP
 
-**[Get the full kit →](https://shellsage-ai.github.io/)**
-
-## Resources
-
-- [MCP Specification](https://spec.modelcontextprotocol.io/)
-- [MCP TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk)
-- [MCP Python SDK](https://github.com/modelcontextprotocol/python-sdk)
-- [Claude Desktop MCP Docs](https://docs.anthropic.com/en/docs/build-with-claude/mcp)
-- [Glama MCP Directory](https://glama.ai/mcp/servers/tdjg6t8sk8)
-
-## License
-
-MIT — use this however you want.
+- Comunidad de desarrolladores MCP
