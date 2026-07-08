@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "mi-servidor": {
+      "command": "node",
+      "args": ["dist/index.js"]
+    }
+  }
+}
